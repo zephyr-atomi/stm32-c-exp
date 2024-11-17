@@ -16,14 +16,83 @@
  ******************************************************************************
  */
 
+#include <stddef.h>
 #include <stdint.h>
 
 #if !defined(__SOFT_FP__) && defined(__ARM_FP)
   #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use."
 #endif
 
-int main(void)
-{
-    /* Loop forever */
-	for(;;);
+#include "stm32f4xx_ll_bus.h"
+#include "stm32f4xx_ll_gpio.h"
+#include "stm32f4xx_ll_rcc.h"
+#include "stm32f4xx_ll_system.h"
+#include "stm32f4xx_ll_utils.h"
+
+//void SystemClock_Config(void);
+
+int main(void) {
+//    // 配置系统时钟
+//    SystemClock_Config();
+
+    // 使能 GPIOC 时钟
+    LL_AHB1_GRP1_EnableClock(LL_AHB1_GRP1_PERIPH_GPIOC);
+
+    // 配置 PC13 为输出模式
+    LL_GPIO_SetPinMode(GPIOC, LL_GPIO_PIN_13, LL_GPIO_MODE_OUTPUT);
+    LL_GPIO_SetPinOutputType(GPIOC, LL_GPIO_PIN_13, LL_GPIO_OUTPUT_PUSHPULL);
+    LL_GPIO_SetPinSpeed(GPIOC, LL_GPIO_PIN_13, LL_GPIO_SPEED_FREQ_LOW);
+
+    while (1) {
+        // 切换 LED 状态
+        LL_GPIO_TogglePin(GPIOC, LL_GPIO_PIN_13);
+        for (size_t i = 0; i < 1000000; ++i) ;
+        // 延时 500ms
+//        LL_mDelay(500);
+    }
 }
+
+//void SystemClock_Config(void) {
+//    // 默认使用 HSI 时钟
+//    LL_FLASH_SetLatency(LL_FLASH_LATENCY_2);
+//    LL_RCC_HSI_Enable();
+//    while (LL_RCC_HSI_IsReady() != 1);
+//
+//    LL_RCC_PLL_ConfigDomain_SYS(LL_RCC_PLLSOURCE_HSI, LL_RCC_PLLM_DIV_16, 336, LL_RCC_PLLP_DIV_4);
+//    LL_RCC_PLL_Enable();
+//    while (LL_RCC_PLL_IsReady() != 1);
+//
+//    LL_RCC_SetAHBPrescaler(LL_RCC_SYSCLK_DIV_1);
+//    LL_RCC_SetAPB1Prescaler(LL_RCC_APB1_DIV_2);
+//    LL_RCC_SetAPB2Prescaler(LL_RCC_APB2_DIV_1);
+//    LL_RCC_SetSysClkSource(LL_RCC_SYS_CLKSOURCE_PLL);
+//    while (LL_RCC_GetSysClkSource() != LL_RCC_SYS_CLKSOURCE_STATUS_PLL);
+//
+//    LL_SetSystemCoreClock(84000000);
+//}
+//
+//void SystemClock_Config(void) {
+//    // 启用 HSE 外部晶振
+//    LL_RCC_HSE_Enable();
+//    while (LL_RCC_HSE_IsReady() != 1); // 等待 HSE 稳定
+//
+//    // 配置主 PLL (HSE source, PLL_M = 25, PLL_N = 200, PLL_P = 2)
+//    LL_RCC_PLL_ConfigDomain_SYS(LL_RCC_PLLSOURCE_HSE, LL_RCC_PLLM_DIV_25, 200, LL_RCC_PLLP_DIV_2);
+//    LL_RCC_PLL_Enable();
+//    while (LL_RCC_PLL_IsReady() != 1); // 等待 PLL 稳定
+//
+//    // 配置时钟分频
+//    LL_RCC_SetAHBPrescaler(LL_RCC_SYSCLK_DIV_1);
+//    LL_RCC_SetAPB1Prescaler(LL_RCC_APB1_DIV_2);  // 最大 50 MHz
+//    LL_RCC_SetAPB2Prescaler(LL_RCC_APB2_DIV_1);  // 最大 100 MHz
+//
+//    // 切换系统时钟到 PLL
+//    LL_RCC_SetSysClkSource(LL_RCC_SYS_CLKSOURCE_PLL);
+//    while (LL_RCC_GetSysClkSource() != LL_RCC_SYS_CLKSOURCE_STATUS_PLL);
+//
+//    // 更新系统时钟频率
+//    LL_SetSystemCoreClock(100000000);
+//
+//    // 初始化 SysTick 以支持 1ms 延时
+//    LL_Init1msTick(100000000);
+//}

@@ -44,6 +44,11 @@ set (MFLOAT_ABI               "")
 set (RUNTIME_LIBRARY          "--specs=nano.specs")
 set (RUNTIME_LIBRARY_SYSCALLS "--specs=nosys.specs")
 
+###################### ADDITIONAL VARS ######################################
+set(STM32CUBE_F4_PATH "/home/lamuguo/code/stm32/STM32CubeF4"
+	CACHE PATH "Path to STM32CubeF4 repository")
+message(STATUS "Using STM32CubeF4 at: ${STM32CUBE_F4_PATH}")
+
 
 set (PROJECT_SOURCES
 	# LIST SOURCE FILES HERE
@@ -52,17 +57,23 @@ set (PROJECT_SOURCES
 	Sources/syscalls.c
 	Sources/sysmem.c
 
-
+    ${STM32CUBE_F4_PATH}/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_gpio.c
+    ${STM32CUBE_F4_PATH}/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_rcc.c
+    ${STM32CUBE_F4_PATH}/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_utils.c
+    ${STM32CUBE_F4_PATH}/Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c
 	)
 
 set (PROJECT_DEFINES
 	# LIST COMPILER DEFINITIONS HERE
-
+    USE_FULL_LL_DRIVER
+    STM32F411xE
     )
 
 set (PROJECT_INCLUDES
 	# LIST INCLUDE DIRECTORIES HERE
-
+    ${STM32CUBE_F4_PATH}/Drivers/STM32F4xx_HAL_Driver/Inc
+    ${STM32CUBE_F4_PATH}/Drivers/CMSIS/Include
+    ${STM32CUBE_F4_PATH}/Drivers/CMSIS/Device/ST/STM32F4xx/Include
     )
 
 ############ MODIFY ACCORDING TO REQUIREMENTS) ########################
