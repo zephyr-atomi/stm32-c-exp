@@ -56,10 +56,13 @@ set (PROJECT_SOURCES
 	Sources/main.c
 	Sources/syscalls.c
 	Sources/sysmem.c
+	Sources/stm32f4xx_hal_msp.c
+	Sources/stm32f4xx_it.c
 
-    ${STM32CUBE_F4_PATH}/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_gpio.c
-    ${STM32CUBE_F4_PATH}/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_rcc.c
-    ${STM32CUBE_F4_PATH}/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_utils.c
+    ${STM32CUBE_F4_PATH}/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.c
+    ${STM32CUBE_F4_PATH}/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.c
+    ${STM32CUBE_F4_PATH}/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c
+    ${STM32CUBE_F4_PATH}/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.c
     ${STM32CUBE_F4_PATH}/Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c
 	)
 
@@ -71,6 +74,7 @@ set (PROJECT_DEFINES
 
 set (PROJECT_INCLUDES
 	# LIST INCLUDE DIRECTORIES HERE
+	Includes
     ${STM32CUBE_F4_PATH}/Drivers/STM32F4xx_HAL_Driver/Inc
     ${STM32CUBE_F4_PATH}/Drivers/CMSIS/Include
     ${STM32CUBE_F4_PATH}/Drivers/CMSIS/Device/ST/STM32F4xx/Include
