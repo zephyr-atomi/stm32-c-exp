@@ -58,6 +58,9 @@ set (PROJECT_SOURCES
 	Sources/sysmem.c
 	Sources/stm32f4xx_hal_msp.c
 	Sources/stm32f4xx_it.c
+	Sources/SEGGER_RTT.c
+	Sources/SEGGER_RTT_printf.c
+	Sources/SEGGER_RTT_ASM_ARMv7M.S
 
     ${STM32CUBE_F4_PATH}/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.c
     ${STM32CUBE_F4_PATH}/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.c

@@ -92,8 +92,12 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  SEGGER_RTT_printf(0, "hello world\n");
+  int count = 0;
   while (1)
   {
+	  count++;
+	  SEGGER_RTT_printf(0, "in %d\n", count);
 
       HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin);
 
